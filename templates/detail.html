@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block body %}
+{% for student in students %}
+<div>
+
+  {% if student.avatar %}
+  <img src="{{ student.avatar.url }}" class="rounded-circle" style="width: 120px; height: 120px;">
+  {% else %}
+  {% if student.gender == 'Erkek'  %}
+  <img src="{% static 'media/man_default.jpg' %}" class="rounded-circle" style="width: 120px; height: 120px;">
+  {% else %}
+  <img src="{% static 'media/woman_default.jpg' %}" class="rounded-circle" style="width: 120px; height: 120px;">
+  {% endif %}
+  {% endif %}
+
+</div>
+
+<div>
+  <br>
+  <h5>{{student.name}} {{student.surname}}</h5>
+  <br>
+</div>
+
+<table class="table table-hover table-bordered table-striped text-center">
+  <tbody>
+    <tr>
+
+      <th scope="row">Telefon Numarası</th>
+      <td>{{student.phone}}</td>
+
+    </tr>
+    <tr>
+      <th scope="row">Veli Telefon Numarası</th>
+      <td>{{student.parent_phone}}</td>
+    </tr>
+    <tr>
+      <th scope="row">E-Mail Adresi</th>
+      <td>{{student.email}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Cinsiyet</th>
+      <td>{{student.gender}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Doğum Tarihi</th>
+      <td>{{student.birthday}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Kayıt Tarihi</th>
+      <td>{{student.created_date}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Son Çevrimiçi </th>
+      <td>{{request.user.last_login}}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endfor %}
+{% endblock body %}

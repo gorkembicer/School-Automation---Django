@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/s-sidebar.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <title>PAULIS</title>
+</head>
+
+<body>
+  <div class="d-flex" id="wrapper">
+    {% if request.user.is_authenticated %}
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+    <br>
+      <div class="sidebar-heading text-center"> PAULIS </div>
+      <br>
+      <div class="list-group list-group-flush">
+        <a href="/" class="list-group-item list-group-item-action bg-light">Ana Sayfa</a>
+        <a href="{% url 'student:student_list'  %}" class="list-group-item list-group-item-action bg-light">Öğrenciler</a>
+      </div>
+    </div>
+    {% endif %}
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Menu</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/"> <span class="sr-only">(current)</span>  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">  </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              {% if not request.user.is_authenticated %}
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Üye
+              </a>
+              {% else %}
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{request.user.first_name}}</a>
+              {% endif %}
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                {% if not request.user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'student:login'  %}">Giriş Yap</a>
+                <a class="dropdown-item" href="{% url 'student:register'%}">Kayıt Ol</a>
+                {% else %}
+                <a class="dropdown-item" href="{% url 'student:detail' user.id %}">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'student:logout'  %}">Çıkış Yap</a>
+                {% endif %}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid text-center">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == "info" %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% else %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        <!-- Main content -->
+        <section class="content" style="margin-top:20px;">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-body">
+                <div class="col">
+                  {% block body %}
+
+
+                  {% endblock body %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $("#menu-toggle").click(function (e) {
+      console.log("geldi");
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+
+
+
+  <script>
+    (function ($) {
+      $('.clickable-row').css('cursor', 'pointer');
+      $(".clickable-row").click(function () {
+        window.location = $(this).data("href");
+      });
+    })(jQuery)
+  </script>
+
+  {% block morejs %}
+
+
+  {% endblock morejs %}
+</body>
+
+</html>

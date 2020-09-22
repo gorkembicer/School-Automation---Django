@@ -1,0 +1,11 @@
+{
+    "python.linting.enabled": false,
+    "timeline.excludeSources": [],
+    "emmet.triggerExpansionOnTab" :true,
+    "emmet.showExpandedAbbreviation": "always",
+    "emmet.showSuggestionsAsSnippets" : true,
+    
+    
+}
+
+

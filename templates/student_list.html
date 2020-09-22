@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  
+ <div class="table-responsive">
+    <table id="studenttable" class="table table-bordered table-hover" data-page-length='100'>
+      <thead class="thead-light">
+        <tr>
+          <th>No</th>
+          <th>Ad - Soyad</th>
+          <th>E-Posta</th>
+          <th>Doğum Tarihi</th>
+          <th>Cinsiyet</th>
+          <th>Veli Telefon</th>
+          <th>Kişisel Telefon</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for student in students %}
+          <tr class='clickable-row' data-href="{% url 'student:detail' student.author_id %}">
+            <td>{{ student.author_id}}</td>
+            <td>{{ student.name}} {{student.surname }} </td>
+            <td>{{ student.email}}</td>
+            <td>{{ student.birthday}}</td>
+            <td>{{ student.gender}}</td>
+            <td>{{ student.parent_phone}}</td>
+            <td>{{ student.phone}}</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+  
+{% endblock body %}
+
+{% block morejs %}
+
+
+{% endblock morejs %}
