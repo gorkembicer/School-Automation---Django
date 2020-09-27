@@ -3,7 +3,8 @@
     "timeline.excludeSources": [],
     "emmet.triggerExpansionOnTab" :true,
     "emmet.showExpandedAbbreviation": "always",
-    "emmet.showSuggestionsAsSnippets" : true,
+    "emmet.showSuggestionsAsSnippets": true,
+    "python.pythonPath": "C:\\Python\\python.exe",
     
     
 }
